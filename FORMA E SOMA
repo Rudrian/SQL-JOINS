@@ -1,0 +1,39 @@
+create database BD_GERJOIN;
+use BD_GERJOIN;
+
+create table funcionarios(
+    cod int auto_increment primary key,
+    nome varchar(255) not null,
+    especialidade varchar(255) not null
+);
+
+create table dependentes(
+    cod int auto_increment primary key,
+    nome varchar(255) not null,
+    cod_func int,
+    FOREIGN KEY (cod_func) REFERENCES funcionarios(cod)
+);
+
+insert into funcionarios (nome, especialidade)
+values ('José', 'Engenheiro'),
+('João', 'Mestre de Obras'),
+('Maria', 'Contabilista');
+
+insert into dependentes (nome, cod_func)
+values ('Pedro', 1),
+('Alice', 1),
+('Luana', 3);
+
+DELETE FROM dependentes 
+WHERE cod_func = 3;
+
+
+select * from funcionarios;
+select * from dependentes;
+
+SELECT funcionarios.nome, dependentes.nome
+FROM funcionarios
+LEFT JOIN dependentes
+ON funcionarios.cod = dependentes.cod_func
+WHERE dependentes.nome IS NULL;
+where dependentes.cod_func = 1;
